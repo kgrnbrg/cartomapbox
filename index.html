@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="stylesheets/style.css" />
 <script src="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb.uncompressed.js"></script>
 <script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.standalone.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.css' rel='stylesheet' />
+<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.js'></script>
 
 <style>
   body { margin:0; padding:0; }
@@ -18,21 +20,40 @@
 <body>
 <div id='map'></div>
 <script>
+
+// MapBox
 L.mapbox.accessToken = 'pk.eyJ1Ijoia2dybmJyZyIsImEiOiJmU1V5R3JzIn0.n76VCeUTK4h4QAo2eZGNrg';
-var map = L.mapbox.map('map', 'kgrnbrg.4634736b');
+var map = L.mapbox.map('map', 'kgrnbrg.4634736b').setView([31.245232, 121.556225], 12);
 
 var layers =  L.mapbox.tileLayer('kgrnbrg.ncp2jc8e');
 layers.addTo(map);
 
+var featureGroup = L.featureGroup().addTo(map);
+
+var drawControl = new L.Control.Draw({
+    edit: {
+      featureGroup: featureGroup
+    }
+  }).addTo(map);
+
+  map.on('draw:created', function(e) {
+      featureGroup.addLayer(e.layer);
+  });
+
+
+// CartoDB 
 cartodb.createLayer(map, 'https://imamaps.cartodb.com/api/v2/viz/3883d6c2-584d-11e5-a8d3-0e9d821ea90d/viz.json').addTo(map)
         .on('done', function(layer) {
-            layer.setZIndex(5);
+            layer.setZIndex(10);
+       
         });
 
         L.control.layers(layers).addTo(map);
 
+
 features.on('ready', function() {
   	map.fitBounds(features.getBounds());
+
 });
 </script>
 </body>

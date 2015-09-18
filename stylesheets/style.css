@@ -18,3 +18,7 @@ html, body, #map {
       .cartodb-logo{
         visibility: hidden; 
        }
+
+       .leaflet-draw-draw-polyline {
+        display: none;
+       }
