@@ -1,0 +1,20 @@
+html, body, #map {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      .lorem {
+        font-style: italic;
+        color: #AAA;
+      }
+
+      .deleteButton {
+
+      }
+      .leaflet-container .leaflet-control-attribution {
+        display: none;
+      }
+      .cartodb-logo{
+        visibility: hidden; 
+       }
