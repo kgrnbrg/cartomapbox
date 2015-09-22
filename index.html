@@ -106,10 +106,10 @@
 	       });
 
 	// MapBox
-	L.mapbox.accessToken = 'pk.eyJ1Ijoia2dybmJyZyIsImEiOiJmU1V5R3JzIn0.n76VCeUTK4h4QAo2eZGNrg';
-	var map = L.mapbox.map('map', 'kgrnbrg.4634736b').setView([31.245232, 121.556225], 12);
+	L.mapbox.accessToken = 'MAPBOX ACCESS TOKEN';
+	var map = L.mapbox.map('map', 'MAPBOX STYLE ID').setView([31.245232, 121.556225], 12);
 
-	var layers =  L.mapbox.tileLayer('kgrnbrg.ncp2jc8e');
+	var layers =  L.mapbox.tileLayer('MAPBOX PROJECT ID');
 	layers.addTo(map);
 
 	var featureGroup = L.featureGroup().addTo(map);
@@ -171,7 +171,7 @@
 	// REMOVE POINT FROM DATABASE
 	function deletePoint() {
 	          
-	    var username = "imamaps";
+	    var username = "YOUR CARTODB ACCOUNT NAME";
 	        
 	        sidebar.hide();
 
@@ -179,10 +179,10 @@
 	        if (username != null) {
 
 	          // ASSEMBLE QUERY
-	          var sql = "DELETE FROM food WHERE cartodb_id=" +currentId+"&api_key=4995f1a33e2978bc990ac0e13f1135dc5795d56c";
+	          var sql = "DELETE FROM food WHERE cartodb_id=" +currentId+"&api_key=CARTODB KEY";
 
 	          $.ajax({
-	            url: 'https://imamaps.cartodb.com/api/v2/sql?q='+sql,
+	            url: 'https://YOUR MAP.cartodb.com/api/v2/sql?q='+sql,
 	            success: function(responseData, textStatus, jqXHR) {
 	              console.log("Data Deleted");
 	            },
@@ -200,16 +200,16 @@
 	        console.log("column name: " + columnName + " value: " + newData + " theID: " + id)
 
 	        // hardcoded.... meh
-	        var username = "imamaps";
+	        var username = "YOUR CARTODB ID";
 	        
 	        // finally write the points back into the table
 	        if (username != null) {
 
 	          // ASSEMBLE QUERY
-	          var sql = "UPDATE food SET " + columnName + "='" + newData + "' WHERE cartodb_id=" +currentId+"&api_key=4995f1a33e2978bc990ac0e13f1135dc5795d56c";
+	          var sql = "UPDATE food SET " + columnName + "='" + newData + "' WHERE cartodb_id=" +currentId+"&api_key=CARTODB  API KEY";
 
 	          $.ajax({
-	            url: 'https://imamaps.cartodb.com/api/v2/sql?q='+sql,
+	            url: 'https://YOUR CARTODB ID.cartodb.com/api/v2/sql?q='+sql,
 	            success: function(responseData, textStatus, jqXHR) {
 	              console.log("Data saved");
 	            },
@@ -235,7 +235,7 @@
 	      }
 
 	// CartoDB 
-	cartodb.createLayer(map, 'https://imamaps.cartodb.com/api/v2/viz/3883d6c2-584d-11e5-a8d3-0e9d821ea90d/viz.json').addTo(map)
+	cartodb.createLayer(map, 'https://YOUR CARTODB ID / TABLE JSON LINK').addTo(map)
 	        .on('done', function(layer) {
 	            layer.setZIndex(10);
 	 
@@ -305,7 +305,7 @@
 	            sidebar.show();
 
 	              // hardcoded to my account for now
-	            var username = "imamaps";
+	            var username = "YOUR CARTODB";
 
 	            var lat = layer.getLatLng().lat;
 	            var lng = layer.getLatLng().lng;
@@ -314,10 +314,10 @@
 	            if (username != null) {
 	      
 
-	            var sql = "INSERT INTO food (the_geom, name) VALUES (ST_GeomFromText('POINT(" + lng + " " + lat + ")', 4326),'some place')&api_key=4995f1a33e2978bc990ac0e13f1135dc5795d56c";
+	            var sql = "INSERT INTO food (the_geom, name) VALUES (ST_GeomFromText('POINT(" + lng + " " + lat + ")', 4326),'some place')&api_key=CARTODB API KEY";
 	                
 	                $.ajax({
-	                  url: 'https://imamaps.cartodb.com/api/v2/sql?q='+sql,
+	                  url: 'https://CARTODB ACCOUNT.cartodb.com/api/v2/sql?q='+sql,
 	                  success: function(responseData, textStatus, jqXHR) {
 	                    console.log("Data saved");
 	                  },
